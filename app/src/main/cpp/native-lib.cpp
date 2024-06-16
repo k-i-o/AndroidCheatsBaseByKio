@@ -31,8 +31,7 @@ extern "C" {
                 "BLOCK_0_0,1,2", // 0,1,2
 
                 "switch_9_0_Enable Better Multiplier",
-                "switch_11_2_Enable Better Multiplier",
-                "slider_10_1_Multiplier_999_100"
+                "slider_10_0_Multiplier_999_100"
         };
         int Total_Feature = (sizeof features / sizeof features[0]);
 
@@ -113,8 +112,8 @@ JNI_OnLoad(JavaVM *vm, void *reserved) {
     JNIEnv *globalEnv;
     vm->GetEnv((void **) &globalEnv, JNI_VERSION_1_6);
 
-    pthread_t ptid;
-    pthread_create(&ptid, NULL, hack_thread, NULL);
+    pthread_t pthread;
+    pthread_create(&pthread, NULL, hack_thread, NULL);
 
     return JNI_VERSION_1_6;
 }

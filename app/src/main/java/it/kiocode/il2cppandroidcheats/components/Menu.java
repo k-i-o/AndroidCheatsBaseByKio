@@ -2,7 +2,6 @@ package it.kiocode.il2cppandroidcheats.components;
 
 // shitty code that i should rewrite
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -157,11 +156,9 @@ public class Menu
         __page.addView(_page, -1, -1);
         _page.setVisibility(View.GONE);
         __pages.add(_page);
-        _butt.callback = new PageButton.Callback() {
-            public void onClick() {
-                __pagetitle.setText(nm);
-                showPage(pageid);
-            }
+        _butt.callback = () -> {
+            __pagetitle.setText(nm);
+            showPage(pageid);
         };
 
         _pagebuttons.add(_butt);
@@ -180,9 +177,7 @@ public class Menu
         Utils.anim(__pages.get(id), 400);
     }
 
-    public int newBlock(int pageid, String[] names) {
-        final int blockid = blocks.size();
-
+    public void newBlock(int pageid, String[] names) {
         LinearLayout blockline = new LinearLayout(context);
         blockline.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -201,18 +196,16 @@ public class Menu
 
         }
         __pages.get(pageid).addView(blockline, -1, -2);
-        return blockid;
     }
 
-    @SuppressLint("SetTextI18n")
     public Menu(Context context)
     {
         init(context);
 
+        // Get the icon of the floating button
         _icon = new ImageView(context);
-        {
-            Utils.SetAssets(context,_icon, "icon.png");
-        }
+        Utils.SetAssets(context, _icon, "icon.png");
+
 
         menulayout = new LinearLayout(context);
         {
@@ -255,22 +248,23 @@ public class Menu
         }
         menulayout.addView(linear7);
 
-        _close = new LinearLayout(context);
+        // minimized/maximized symbol
         {
+            _close = new LinearLayout(context);
             _close.setOrientation(LinearLayout.HORIZONTAL);
             _close.setPadding(0, 0, 0, 0);
             _close.setGravity(17);
 
             GradientDrawable design = new GradientDrawable();
             design.setColor(0);
-            design.setCornerRadii(new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f });
+            design.setCornerRadii(new float[]{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f});
             design.setStroke(0, -16777216);
             _close.setBackground(design);
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dpi(27), -1, 0);
-            lp.leftMargin   = 0;
-            lp.topMargin    = 0;
-            lp.rightMargin  = 0;
+            lp.leftMargin = 0;
+            lp.topMargin = 0;
+            lp.rightMargin = 0;
             lp.bottomMargin = 0;
             _close.setLayoutParams(lp);
             _close.setOnClickListener(p1 -> {
@@ -278,32 +272,30 @@ public class Menu
                 _parentBox.removeAllViews();
                 _parentBox.addView(menulayout, dpi(450), dpi(260));
             });
-        }
-        linear7.addView(_close);
+            linear7.addView(_close);
 
-        textview12 = new TextView(context);
-        {
+            textview12 = new TextView(context);
             textview12.setText(">");
             textview12.setPadding(0, 0, 0, 0);
             textview12.setGravity(17);
 
-            GradientDrawable design = new GradientDrawable();
-            design.setColor(0);
-            design.setCornerRadii(new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f });
-            design.setStroke(1, 0);
-            textview12.setBackground(design);
+            GradientDrawable designText = new GradientDrawable();
+            designText.setColor(0);
+            designText.setCornerRadii(new float[]{0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f});
+            designText.setStroke(1, 0);
+            textview12.setBackground(designText);
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -1, 0);
-            lp.leftMargin   = 0;
-            lp.topMargin    = 0;
-            lp.rightMargin  = 0;
-            lp.bottomMargin = 0;
-            textview12.setLayoutParams(lp);
+            LinearLayout.LayoutParams lpText = new LinearLayout.LayoutParams(-1, -1, 0);
+            lpText.leftMargin = 0;
+            lpText.topMargin = 0;
+            lpText.rightMargin = 0;
+            lpText.bottomMargin = 0;
+            textview12.setLayoutParams(lpText);
             textview12.setTextColor(-1);
             textview12.setTextSize(13.0f);
             textview12.setTypeface(Utils.font(context));
+            _close.addView(textview12);
         }
-        _close.addView(textview12);
 
         textview13 = new TextView(context);
         {
@@ -371,6 +363,7 @@ public class Menu
         }
         linear8.addView(l1);
 
+        // pages
         _pages = new LinearLayout(context);
         {
             _pages.setOrientation(LinearLayout.VERTICAL);
@@ -381,7 +374,7 @@ public class Menu
             design.setColor(-15066336);
             design.setCornerRadii(new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 5.0f, 0.0f, 0.0f });
             design.setStroke(0, -16777216);
-            _pages.setBackgroundDrawable(design);
+            _pages.setBackground(design);
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dpi(110), dpi(195), 0);
             lp.leftMargin   = 0;
@@ -416,6 +409,7 @@ public class Menu
         }
         l1.addView(name2);
 
+        // CLOSE BUTTON
         close = new TextView(context);
         {
             close.setText("Close");
@@ -463,7 +457,6 @@ public class Menu
         linear8.addView(_scroll);
 
         TextView _pagetitle = new TextView(context);
-
         ImageView _pagesrc = new ImageView(context);
 
         __pagetitle = _pagetitle;

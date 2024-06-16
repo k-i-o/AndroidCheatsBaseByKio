@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Il2CPPAndroidCheats" parent="android:Theme.Light">
+    <style name="Theme.Il2CPPAndroidCheats" parent="android:Theme.Black.NoTitleBar.Fullscreen">
     </style>
 </resources>

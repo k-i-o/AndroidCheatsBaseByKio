@@ -25,6 +25,8 @@ public class MainActivity extends Activity implements KeyEvent.Callback {
         setContentView(lt);
     }
 
+
+    // EVENTS
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         super.onKeyUp(keyCode, event);
